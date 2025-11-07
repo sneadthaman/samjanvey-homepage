@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sam Janvey — Builder • Operator • Maker</title>
+    <meta name="description" content="Personal homepage of Sam Janvey: projects, apps, radio station, GitHub, and professional work." />
+    <meta property="og:title" content="Sam Janvey — Builder • Operator • Maker" />
+    <meta property="og:description" content="Projects, apps, radio, and work. Built with the Futura CSS framework." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og.jpg" />
+
+    <!-- Futura (your CSS framework) -->
+    <link rel="stylesheet" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" />
+
+    <style>
+        /* Tiny helpers that don't conflict with Futura */
+        .chip { display:inline-block; padding:.35em .6em; border:1px solid rgba(0,0,0,.15); border-radius:999px; font-size:.8em; }
+        .muted{ opacity:.8 }
+        .hero-cover{ display:flex; align-items:center; justify-content:center; text-align:center; color:var(--color-primary); flex-direction:column; padding:1em }
+        .grid{ display:grid; gap:1em }
+        /* Mobile-first grids: single column by default */
+        .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
+        @media (min-width:768px){ .grid.cols-3{ grid-template-columns:repeat(3,1fr) } .grid.cols-2{ grid-template-columns:repeat(2,1fr) } }
+        
+        /* 90s terminal container using <section> */
+        .terminal { background-color:#212529; color:#7fff00; border:1px solid #2f363d; border-radius:10px; padding:1em; }
+        .terminal h3, .terminal p, .terminal a, .terminal small { color:#7fff00; font-family:"FM Pointifax C", monospace; }
+        .terminal a { text-decoration: underline; }
+        
+        /* HERO text wrapping fixes */
+        .hero p { max-width: 65ch; margin: 0 auto; white-space: normal; overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
+        .hero p.width-100{ width:auto; } /* override utility that forced full width */
+        
+        /* Responsive helpers */
+        .stack-sm{ display:flex; gap:.75em; flex-wrap:wrap }
+        @media (max-width:640px){
+        header nav.flex{ flex-direction:column; align-items:center; gap:.5em }
+        header nav ul{ justify-content:center; gap:.5em }
+        header nav ul li{ margin-left:0; padding:.25em .5em }
+        .hero{ height:auto; padding:2em 0 }
+        .hero h1{ font-size:1.8rem; line-height:1.2; }
+        .hero p{ font-size:1rem; padding:0 1em }
+        .stack-sm{ flex-direction:column; align-items:center }
+        .container{ width:92% }
+        #radio-embed{ min-height:220px }
+        }
+        
+        @media (min-width:641px) and (max-width:1024px){
+        .hero h1{ font-size:2.4rem; line-height:1.2; }
+        }
+        
+        /* Make media elements fluid */
+        img, iframe, video { max-width:100%; height:auto }
+        /* Contain any rogue horizontal scroll from wide children (forms/iframes) */
+        html, body { overflow-x: hidden; }
+        
+        /* Ensure form fields never exceed container width */
+        form[name="contact"] input,
+        form[name="contact"] textarea,
+        form[name="contact"] button { max-width: 100%; width: 100%; }
+        
+        /* On phones, force the two-column form to stack cleanly */
+        @media (max-width:640px){
+        form[name="contact"] .grid.cols-2 { grid-template-columns: 1fr; }
+        }
+        /* Global dark background for terminal contrast */
+html, body {
+  background-color: #000;
+  color: #fdfdfe;
+}
+
+/* Lift terminals slightly with subtle glow */
+.terminal {
+  box-shadow: 0 0 12px rgba(0,255,0,0.2);
+}
+/* Terminal header “prompt” line */
+.terminal::before {
+  content: 'sam@janvey:~$';
+  display: block;
+  color: #7fff00;
+  font-family: "FM Pointifax C", monospace;
+  margin-bottom: .5em;
+  opacity: .75;
+}
+        </style>
+
+    <script>
+      const CONFIG = {
+        github: "https://github.com/sneadthaman",
+        radioPublicPlayer: "https://radio.samjanvey.com/public/sam_fm", // e.g. https://radio.yourdomain.com/public/station_1
+        nowPlayingApi: "https://radio.samjanvey.com/api/nowplaying/sam_fm", // e.g. https://radio.yourdomain.com/api/nowplaying/station_1
+        email: "sjanvey@gmail.com",
+        linkedin: "https://www.linkedin.com/in/sam-janvey-982b3336/",
+      };
+
+      async function loadNowPlaying() {
+        const el = document.querySelector('#now-playing');
+        if(!CONFIG.nowPlayingApi || !el) return;
+        try {
+          const res = await fetch(CONFIG.nowPlayingApi);
+          const json = await res.json();
+          const s = json && json.now_playing ? json.now_playing.song : null;
+          if(s){ el.innerHTML = `<strong>${s.title||'Unknown Title'}</strong> — ${s.artist||'Unknown Artist'}`; }
+        } catch(e){ /* silent */ }
+      }
+      document.addEventListener('DOMContentLoaded', loadNowPlaying);
+    </script>
+  </head>
+  <body>
+    <!-- Top Nav using Futura's nav styles -->
+    <header class="container margin-top-3">
+      <nav class="flex justify-content-between align-content-center stack-sm">
+        <a href="#" class="fmpointifax text-md letter-spacing-2">SAM&nbsp;JANVEY</a>
+        <ul class="flex">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#apps">Apps</a></li>
+          <li><a href="#radio">Radio</a></li>
+          <li><a href="#career">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero: uses .hero background class from Futura; you can replace the image at /images/hero_foggy_1182x665.jpg -->
+    <section class="hero hero-cover">
+      <div class="container">
+        <h1 class="text-xxxl fmpointifax letter-spacing-2 align-center margin-bottom-2">I build practical things.</h1>
+        <p class="align-center inconsolata muted width-100">From a 24/7 online radio station to ERP tools, from a CSS framework (<b>Futura</b>) to the <i>Nassau Golf</i> app—my focus is shipping real products people use.</p>
+        <div class="flex justify-content-center margin-top-2 stack-sm">
+          <a class="button-primary" href="#projects">See my work</a>
+          <a class="button-success margin-left-2" href="javascript:void(0)" onclick="window.open(CONFIG.github,'_blank')">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="container">
+      <div class="flex justify-content-between align-content-end">
+        <h2 class="fmpointifax">Highlighted Projects</h2>
+        <a href="javascript:void(0)" onclick="window.open(CONFIG.github,'_blank')" class="inconsolata">All on GitHub →</a>
+      </div>
+
+      <div class="grid cols-3 margin-top-2">
+        <section class="terminal">
+          <span class="chip">App</span>
+          <h3 class="margin-top-2">Nassau Golf</h3>
+          <p class="inconsolata">Handicap‑aware scoring, presses, side bets & match tracking for real foursomes. Mobile‑first.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="#apps">Details</a>
+            <a class="margin-left-2" href="#">Repo</a>
+          </div>
+        </section>
+
+        <section class="terminal">
+          <span class="chip">Infra</span>
+          <h3 class="margin-top-2">Online Radio Station</h3>
+          <p class="inconsolata">Self‑hosted AzuraCast with playlists, audio processing (Stereo Tool), and live DJ support.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="#radio">Listen</a>
+            <a class="margin-left-2" href="#">Notes</a>
+          </div>
+        </section>
+
+        <section class="terminal">
+          <span class="chip">CSS</span>
+          <h3 class="margin-top-2">Futura CSS</h3>
+          <p class="inconsolata">Minimal, utility‑first styling for fast prototyping and production UI.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" target="_blank" rel="noopener">CSS</a>
+            <a class="margin-left-2" href="https://jovial-brattain-a25ab6.netlify.app" target="_blank" rel="noopener">Playground</a>
+          </div>
+        </section>
+
+        <section class="terminal">
+          <span class="chip">Games</span>
+          <h3 class="margin-top-2">Game Projects @ Penn State</h3>
+          <p class="inconsolata">A collection of small games and experiments from my Penn State courses.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="#apps">Gallery</a>
+            <a class="margin-left-2" href="#">Source</a>
+          </div>
+        </section>
+
+        <section class="terminal">
+          <span class="chip">Ops</span>
+          <h3 class="margin-top-2">PDF → CSV Order Parser</h3>
+          <p class="inconsolata">Automates Northwell/CHS POs into NetSuite‑ready CSVs. Drag‑and‑drop UI + email ingest.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="#">Case study</a>
+            <a class="margin-left-2" href="#">Repo</a>
+          </div>
+        </section>
+
+        <section class="terminal">
+          <span class="chip">AI</span>
+          <h3 class="margin-top-2">AI Outreach Agent</h3>
+          <p class="inconsolata">Finds under‑penetrated customers (&lt;$50k/yr), drafts multi‑touch campaigns, logs to NetSuite.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="#">Overview</a>
+            <a class="margin-left-2" href="#">Repo</a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Apps & Games -->
+    <section id="apps" class="container">
+      <h2 class="fmpointifax">Apps & Games</h2>
+      <div class="grid cols-3 margin-top-2">
+        <section class="terminal">
+          <h3>The Embrace (Prototype)</h3>
+          <p class="inconsolata">Found‑footage horror prototype. Phone‑shot assets; Unity build.</p>
+          <div class="flex stack-sm"><a class="button-primary" href="#">Play</a><a class="margin-left-2" href="#">Source</a></div>
+        </section>
+        <section class="terminal">
+          <h3>Warehouse KPI Dashboard</h3>
+          <p class="inconsolata">Routes, load %, SLA, and exceptions. NetSuite + custom scripts.</p>
+          <div class="flex stack-sm"><a class="button-primary" href="#">Demo</a><a class="margin-left-2" href="#">Source</a></div>
+        </section>
+        <section class="terminal">
+          <h3>Rebate Engine</h3>
+          <p class="inconsolata">Automates tiered rebates (Northwell/CHS). Audit‑ready exports.</p>
+          <div class="flex stack-sm"><a class="button-primary" href="#">Overview</a><a class="margin-left-2" href="#">Source</a></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Radio -->
+    <section id="radio" class="container">
+      <div class="grid cols-2">
+        <section>
+          <h2 class="fmpointifax">📻 My Online Radio</h2>
+          <p class="inconsolata muted">Hand‑curated library, processed with Stereo Tool, streaming 24/7 via AzuraCast.</p>
+          <div class="margin-top-2">
+            <iframe id="radio-embed" title="Sam FM Player" src="about:blank" style="width:100%; min-height:160px; border:0" allow="autoplay; encrypted-media"></iframe>
+          </div>
+          <div class="flex margin-top-2">
+            <a class="button-primary" href="javascript:void(0)" onclick="CONFIG.radioPublicPlayer ? window.open(CONFIG.radioPublicPlayer,'_blank') : alert('Add your public player URL in CONFIG.radioPublicPlayer')">Open player page</a>
+            <a class="margin-left-2" href="#">Schedule</a>
+          </div>
+        </section>
+        <section class="terminal">
+          <h3>Metadata</h3>
+          <p class="inconsolata">Now Playing: <span id="now-playing" class="muted">—</span></p>
+          <p class="inconsolata">Album art: enable in AzuraCast → System Settings → Metadata.</p>
+          <p class="inconsolata">Android Auto: provided via ICY metadata (player‑dependent).</p>
+        </section>
+      </div>
+    </section>
+
+    <!-- Career -->
+    <section id="career" class="container">
+      <h2 class="fmpointifax">Professional Work</h2>
+      <div class="grid cols-2 margin-top-2">
+        <section class="terminal">
+          <h3>I. Janvey & Sons — Sales & Ops</h3>
+          <p class="inconsolata">Wholesale distribution (healthcare/education/government). Pipeline growth, pricing strategy, and data‑driven ops.</p>
+          <a class="button-primary" href="https://www.janvey.com" target="_blank" rel="noopener">Company Site</a>
+        </section>
+        <section class="terminal">
+          <h3>Professional Maintenance of Long Island</h3>
+          <p class="inconsolata">On‑site services: EVS, day porters, floor‑care programs, USP 797 cleaning SOPs, audits & training.</p>
+          <a class="button-primary" href="#">Overview</a>
+        </section>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+      <div class="grid cols-2">
+        <div>
+          <h2 class="fmpointifax">Get in touch</h2>
+          <p class="inconsolata muted">Lightweight collaboration? Advice? I’m open to interesting problems with real users.</p>
+          <div class="flex stack-sm">
+            <a class="button-primary" href="mailto:javascript:void(0)" onclick="location.href=`mailto:${CONFIG.email}`">Email me</a>
+            <a class="margin-left-2" href="javascript:void(0)" onclick="window.open(CONFIG.linkedin,'_blank')">LinkedIn</a>
+          </div>
+        </div>
+
+        <form class="card" name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          <div class="grid cols-2">
+            <label> Name <br /><input name="name" required class="width-100"/></label>
+            <label> Email <br /><input name="email" type="email" required class="width-100"/></label>
+          </div>
+          <label class="margin-top-2" style="display:block"> Message <br /><textarea name="message" rows="5" class="width-100" required></textarea></label>
+          <div class="margin-top-2">
+            <button class="button-success" type="submit">Send</button>
+            
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <section class="container flex justify-content-between align-content-center">
+        <p>© <span id="y"></span> Sam Janvey</p>
+        <p class="inconsolata muted" style="margin-left: 10px">Built with Futura CSS Framework</p>
+      </section>
+    </footer>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+      // Wire up AzuraCast embed iframe
+      (function(){
+        if (CONFIG.radioPublicPlayer) {
+          var f = document.getElementById('radio-embed');
+          if (f) f.src = CONFIG.radioPublicPlayer.replace(/\/$/,'') + '/embed?theme=dark';
+        }
+      })();
+    </script>
+  </body>
+</html>
