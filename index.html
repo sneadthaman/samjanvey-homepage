@@ -1,314 +1,770 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sam Janvey — Builder • Operator • Maker</title>
-    <meta name="description" content="Personal homepage of Sam Janvey: projects, apps, radio station, GitHub, and professional work." />
-    <meta property="og:title" content="Sam Janvey — Builder • Operator • Maker" />
-    <meta property="og:description" content="Projects, apps, radio, and work. Built with the Futura CSS framework." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/og.jpg" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sam Janvey &mdash; Builder &bull; Operator &bull; Maker</title>
+  <meta name="description" content="Personal homepage of Sam Janvey: projects, apps, radio station, GitHub, and professional work." />
+  <meta property="og:title" content="Sam Janvey &mdash; Builder &bull; Operator &bull; Maker" />
+  <meta property="og:description" content="Projects, apps, radio, and work. Built with the Futura CSS framework." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og.jpg" />
 
-    <!-- Futura (your CSS framework) -->
-    <link rel="stylesheet" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" />
+  <link rel="stylesheet" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" />
 
-    <style>
-        /* Tiny helpers that don't conflict with Futura */
-        .chip { display:inline-block; padding:.35em .6em; border:1px solid rgba(0,0,0,.15); border-radius:999px; font-size:.8em; }
-        .muted{ opacity:.8 }
-        .hero-cover{ display:flex; align-items:center; justify-content:center; text-align:center; color:var(--color-primary); flex-direction:column; padding:1em }
-        .grid{ display:grid; gap:1em }
-        /* Mobile-first grids: single column by default */
-        .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; }
-        @media (min-width:768px){ .grid.cols-3{ grid-template-columns:repeat(3,1fr) } .grid.cols-2{ grid-template-columns:repeat(2,1fr) } }
-        
-        /* 90s terminal container using <section> */
-        .terminal { background-color:#212529; color:#7fff00; border:1px solid #2f363d; border-radius:10px; padding:1em; }
-        .terminal h3, .terminal p, .terminal a, .terminal small { color:#7fff00; font-family:"FM Pointifax C", monospace; }
-        .terminal a { text-decoration: underline; }
-        
-        /* HERO text wrapping fixes */
-        .hero p { max-width: 65ch; margin: 0 auto; white-space: normal; overflow-wrap: anywhere; word-break: break-word; hyphens: auto; }
-        .hero p.width-100{ width:auto; } /* override utility that forced full width */
-        
-        /* Responsive helpers */
-        .stack-sm{ display:flex; gap:.75em; flex-wrap:wrap }
-        @media (max-width:640px){
-        header nav.flex{ flex-direction:column; align-items:center; gap:.5em }
-        header nav ul{ justify-content:center; gap:.5em }
-        header nav ul li{ margin-left:0; padding:.25em .5em }
-        .hero{ height:auto; padding:2em 0 }
-        .hero h1{ font-size:1.8rem; line-height:1.2; }
-        .hero p{ font-size:1rem; padding:0 1em }
-        .stack-sm{ flex-direction:column; align-items:center }
-        .container{ width:92% }
-        #radio-embed{ min-height:220px }
-        }
-        
-        @media (min-width:641px) and (max-width:1024px){
-        .hero h1{ font-size:2.4rem; line-height:1.2; }
-        }
-        
-        /* Make media elements fluid */
-        img, iframe, video { max-width:100%; height:auto }
-        /* Contain any rogue horizontal scroll from wide children (forms/iframes) */
-        html, body { overflow-x: hidden; }
-        
-        /* Ensure form fields never exceed container width */
-        form[name="contact"] input,
-        form[name="contact"] textarea,
-        form[name="contact"] button { max-width: 100%; width: 100%; }
-        
-        /* On phones, force the two-column form to stack cleanly */
-        @media (max-width:640px){
-        form[name="contact"] .grid.cols-2 { grid-template-columns: 1fr; }
-        }
-        /* Global dark background for terminal contrast */
-html, body {
-  background-color: #000;
-  color: #fdfdfe;
-}
+  <style>
+    /* ── Base ── */
+    html, body { background-color:#000; color:#fdfdfe; overflow-x:clip; }
 
-/* Lift terminals slightly with subtle glow */
-.terminal {
-  box-shadow: 0 0 12px rgba(0,255,0,0.2);
-}
-/* Terminal header “prompt” line */
-.terminal::before {
-  content: 'sam@janvey:~$';
-  display: block;
-  color: #7fff00;
-  font-family: "FM Pointifax C", monospace;
-  margin-bottom: .5em;
-  opacity: .75;
-}
-        </style>
+    /* ── Layout helpers ── */
+    .chip { display:inline-block; padding:.35em .6em; border:1px solid rgba(0,0,0,.15); border-radius:999px; font-size:.8em; }
+    .muted { opacity:.8 }
+    .hero-cover { display:flex; align-items:center; justify-content:center; text-align:center; flex-direction:column; padding:3em 1em; }
+    .grid { display:grid; gap:1em }
+    .grid.cols-3, .grid.cols-2 { grid-template-columns:1fr; }
+    @media (min-width:768px) {
+      .grid.cols-3 { grid-template-columns:repeat(3,1fr) }
+      .grid.cols-2 { grid-template-columns:repeat(2,1fr) }
+    }
+    .stack-sm { display:flex; gap:.75em; flex-wrap:wrap }
+    img, iframe, video { max-width:100%; height:auto }
+    form[name="contact"] input,
+    form[name="contact"] textarea,
+    form[name="contact"] button { max-width:100%; width:100%; }
 
-    <script>
-      const CONFIG = {
-        github: "https://github.com/sneadthaman",
-        radioPublicPlayer: "https://radio.samjanvey.com/public/sam_fm", // e.g. https://radio.yourdomain.com/public/station_1
-        nowPlayingApi: "https://radio.samjanvey.com/api/nowplaying/sam_fm", // e.g. https://radio.yourdomain.com/api/nowplaying/station_1
-        email: "sjanvey@gmail.com",
-        linkedin: "https://www.linkedin.com/in/sam-janvey-982b3336/",
-      };
+    /* ── Section terminal cards ── */
+    .terminal {
+      background-color:#0d0d0d; color:#7fff00;
+      border:1px solid #2a2a2a; border-radius:10px; padding:1em;
+      box-shadow:0 0 14px rgba(0,255,0,0.12);
+    }
+    .terminal h3, .terminal p, .terminal a, .terminal small {
+      color:#7fff00; font-family:"FM Pointifax C", monospace;
+    }
+    .terminal a { text-decoration:underline; }
+    .terminal::before {
+      content:'sam@janvey:~$';
+      display:block; color:#7fff00;
+      font-family:"FM Pointifax C", monospace;
+      margin-bottom:.5em; opacity:.45;
+    }
 
-      async function loadNowPlaying() {
-        const el = document.querySelector('#now-playing');
-        if(!CONFIG.nowPlayingApi || !el) return;
-        try {
-          const res = await fetch(CONFIG.nowPlayingApi);
-          const json = await res.json();
-          const s = json && json.now_playing ? json.now_playing.song : null;
-          if(s){ el.innerHTML = `<strong>${s.title||'Unknown Title'}</strong> — ${s.artist||'Unknown Artist'}`; }
-        } catch(e){ /* silent */ }
+    /* ────────────────────────────────────────
+       NAV
+    ──────────────────────────────────────── */
+    #nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      transition: background .3s ease, border-color .3s ease;
+    }
+    #nav-wrapper.scrolled {
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(127,255,0,0.12);
+    }
+    #nav-wrapper header {
+      padding: .85em 0;
+    }
+
+    /* Logo */
+    .nav-logo {
+      color: #fdfdfe !important;
+      text-decoration: none !important;
+      transition: color .15s;
+    }
+    .nav-logo:hover { color: #7fff00 !important; }
+
+    /* Desktop link list */
+    #nav-links {
+      position: relative;
+      list-style: none;
+      margin: 0; padding: 0;
+      display: flex; gap: .25em;
+      align-items: center;
+    }
+    #nav-links li { margin: 0; padding: 0; }
+
+    #nav-links a {
+      display: inline-block;
+      font-family: "FM Pointifax C", monospace;
+      font-size: .82em;
+      letter-spacing: .5px;
+      color: rgba(253,253,254,0.6);
+      text-decoration: none !important;
+      padding: .3em .55em;
+      transition: color .15s;
+      position: relative;
+    }
+    /* Brackets appear on hover and when active */
+    #nav-links a::before { content: '['; color: #7fff00; opacity: 0; transition: opacity .15s; margin-right: 1px; }
+    #nav-links a::after  { content: ']'; color: #7fff00; opacity: 0; transition: opacity .15s; margin-left:  1px; }
+    #nav-links a:hover,
+    #nav-links a.active  { color: #7fff00; }
+    #nav-links a:hover::before,
+    #nav-links a:hover::after,
+    #nav-links a.active::before,
+    #nav-links a.active::after { opacity: 1; }
+
+    /* Sliding green underline indicator */
+    #nav-indicator {
+      position: absolute;
+      bottom: -4px;
+      height: 2px;
+      background: #7fff00;
+      box-shadow: 0 0 8px rgba(127,255,0,0.7);
+      border-radius: 1px;
+      transition: left .25s ease, width .25s ease, opacity .2s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Mobile toggle button */
+    #nav-mobile-btn {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(127,255,0,0.45);
+      color: #7fff00;
+      font-family: "FM Pointifax C", monospace;
+      font-size: .82em;
+      padding: .3em .75em;
+      cursor: pointer;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      transition: background .15s, color .15s;
+    }
+    #nav-mobile-btn:hover { background: #7fff00; color: #000; }
+    #nav-mobile-btn.open::before { content: '[close]'; }
+    #nav-mobile-btn:not(.open)::before { content: '[menu]'; }
+
+    /* Mobile dropdown menu */
+    #nav-mobile-menu {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .35s ease;
+      background: #080808;
+      border-top: 1px solid rgba(127,255,0,0.08);
+    }
+    #nav-mobile-menu.open { max-height: 260px; }
+    .nav-mobile-inner {
+      padding: .9em 1.2em 1.1em;
+      border-bottom: 1px solid rgba(127,255,0,0.1);
+    }
+    .nav-mobile-prompt {
+      font-family: "FM Pointifax C", monospace;
+      font-size: .78em;
+      color: #7fff00;
+      opacity: .45;
+      margin-bottom: .5em;
+    }
+    .nav-mobile-link {
+      display: block;
+      font-family: "FM Pointifax C", monospace;
+      font-size: .83em;
+      color: #7fff00;
+      text-decoration: none !important;
+      padding: .35em 0;
+      opacity: .65;
+      transition: opacity .15s, padding-left .15s;
+    }
+    .nav-mobile-link:hover,
+    .nav-mobile-link.active { opacity: 1; padding-left: .5em; }
+
+    @media (max-width: 640px) {
+      #nav-links  { display: none; }
+      #nav-mobile-btn { display: inline-block; }
+    }
+    @media (min-width: 641px) {
+      #nav-mobile-btn  { display: none; }
+      #nav-mobile-menu { display: none !important; }
+    }
+    /* ────────────────────────────────────────
+       END NAV
+    ──────────────────────────────────────── */
+
+    /* ── Hero terminal window ── */
+    #hero-terminal {
+      background:#0d0d0d;
+      border:1px solid rgba(127,255,0,0.3);
+      border-radius:10px;
+      max-width:700px; width:100%;
+      margin:0 auto; text-align:left;
+      box-shadow:0 0 50px rgba(0,255,0,0.14);
+      overflow:hidden;
+    }
+    #terminal-titlebar {
+      display:flex; align-items:center; gap:7px;
+      padding:.65em 1em;
+      background:#161616;
+      border-bottom:1px solid #222;
+    }
+    .t-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+    .t-dot.red    { background:#ff5f57; }
+    .t-dot.yellow { background:#ffbd2e; }
+    .t-dot.green  { background:#28ca41; }
+    #terminal-title-label {
+      color:#555; font-size:.76em;
+      margin:0 auto; font-family:monospace; letter-spacing:.5px;
+    }
+    #terminal-body { padding:1em 1.2em 1em; }
+    #terminal-output {
+      min-height:150px; max-height:260px;
+      overflow-y:auto; margin-bottom:.75em;
+    }
+    .t-line {
+      color:#7fff00; font-size:.87em; line-height:1.75;
+      white-space:pre-wrap; font-family:"FM Pointifax C", monospace;
+    }
+    .t-line.dim      { opacity:.5; }
+    .t-line.response { color:#ccffcc; }
+    .t-line.error    { color:#ff6b6b; }
+    #terminal-input-row {
+      display:flex; align-items:center; gap:.4em;
+      border-top:1px solid #1e1e1e; padding-top:.6em;
+    }
+    .t-prompt-label {
+      color:#7fff00; opacity:.7; white-space:nowrap;
+      font-size:.87em; font-family:"FM Pointifax C", monospace; flex-shrink:0;
+    }
+    #terminal-input {
+      background:transparent; border:none; outline:none;
+      color:#7fff00; font-family:"FM Pointifax C", monospace;
+      font-size:1em; flex:1; caret-color:#7fff00; min-width:0;
+    }
+
+    /* Mobile: tappable command buttons replace the text input */
+    #terminal-btn-row {
+      display: none;
+      flex-wrap: wrap;
+      gap: .45em;
+      padding-top: .6em;
+      border-top: 1px solid #1e1e1e;
+    }
+    .t-cmd-btn {
+      background: transparent;
+      border: 1px solid rgba(127,255,0,0.35);
+      color: #7fff00;
+      font-family: "FM Pointifax C", monospace;
+      font-size: .78em;
+      padding: .35em .7em;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: .5px;
+      transition: background .15s, color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .t-cmd-btn:active { background: #7fff00; color: #000; }
+
+    .t-scroll-hint {
+      text-align:center; opacity:.28; margin-top:1.2em;
+      font-family:monospace; font-size:.75em; letter-spacing:1px;
+    }
+
+    /* ── Sticky radio player ── */
+    #sticky-player {
+      position:fixed; bottom:0; left:0; right:0;
+      background:#0a0a0a;
+      border-top:1px solid rgba(127,255,0,0.25);
+      padding:.55em 1.5em;
+      display:flex; align-items:center; gap:1em;
+      z-index:1000;
+      box-shadow:0 -4px 28px rgba(0,255,0,0.07);
+      transform:translateY(100%);
+      transition:transform .3s ease;
+    }
+    #sticky-player.visible { transform:translateY(0); }
+    #sp-art { width:40px; height:40px; object-fit:cover; border-radius:4px; background:#1a1a1a; flex-shrink:0; }
+    #sp-info { flex:1; min-width:0; }
+    #sp-title  { display:block; color:#7fff00; font-family:monospace; font-size:.84em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #sp-artist { display:block; color:#7fff00; opacity:.55; font-family:monospace; font-size:.74em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #sp-label  { color:#7fff00; opacity:.3; font-family:monospace; font-size:.68em; letter-spacing:1.5px; flex-shrink:0; text-transform:uppercase; }
+    #sp-toggle {
+      background:transparent; border:1px solid rgba(127,255,0,0.6); color:#7fff00;
+      width:34px; height:34px; border-radius:50%; cursor:pointer;
+      font-size:.9em; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; transition:background .15s, color .15s;
+    }
+    #sp-toggle:hover { background:#7fff00; color:#000; }
+
+    /* ── Responsive ── */
+    @media (max-width:640px) {
+      .stack-sm { flex-direction:column; align-items:center }
+      .container { width:92% }
+      h2.fmpointifax { font-size:1.3rem; }
+      h1.fmpointifax { font-size:1.6rem; }
+      #radio-embed { min-height:220px }
+      #sticky-player { padding:.5em 1em; gap:.6em; }
+      #sp-label { display:none; }
+      #terminal-input { font-size:16px; }
+      form[name="contact"] .grid.cols-2 { grid-template-columns:1fr; }
+      /* swap keyboard input for tap buttons */
+      #terminal-input-row { display: none; }
+      #terminal-btn-row   { display: flex; }
+      #terminal-output    { min-height: 120px; max-height: 200px; }
+    }
+  </style>
+
+  <script>
+    const CONFIG = {
+      github:            "https://github.com/sneadthaman",
+      radioPublicPlayer: "https://radio.samjanvey.com/public/sam_fm",
+      nowPlayingApi:     "https://radio.samjanvey.com/api/nowplaying/sam_fm",
+      email:             "sjanvey@gmail.com",
+      linkedin:          "https://www.linkedin.com/in/sam-janvey-982b3336/",
+      streamUrl:         null,
+    };
+
+    /* ── Radio ── */
+    let _audio = null;
+    function getAudio() { if (!_audio) _audio = new Audio(); return _audio; }
+
+    function startRadio() {
+      if (!CONFIG.streamUrl) return;
+      var a = getAudio();
+      a.src = CONFIG.streamUrl;
+      a.play().catch(function(){});
+      var btn = document.getElementById('sp-toggle');
+      if (btn) btn.innerHTML = '&#9646;&#9646;';
+      setStickyVisible(true);
+    }
+
+    function stopRadio() {
+      var a = getAudio();
+      a.pause(); a.src = '';
+      var btn = document.getElementById('sp-toggle');
+      if (btn) btn.innerHTML = '&#9654;';
+    }
+
+    function toggleRadio() {
+      var a = getAudio();
+      (a.paused || !a.src) ? startRadio() : stopRadio();
+    }
+
+    /* ── Sticky player ── */
+    function setStickyVisible(show) {
+      var p = document.getElementById('sticky-player');
+      if (!p) return;
+      if (show) {
+        p.classList.add('visible');
+        document.body.style.paddingBottom = (p.offsetHeight + 8) + 'px';
+      } else {
+        p.classList.remove('visible');
+        document.body.style.paddingBottom = '';
       }
-      document.addEventListener('DOMContentLoaded', loadNowPlaying);
-    </script>
-  </head>
-  <body>
-    <!-- Top Nav using Futura's nav styles -->
-    <header class="container margin-top-3">
-      <nav class="flex justify-content-between align-content-center stack-sm">
-        <a href="#" class="fmpointifax text-md letter-spacing-2">SAM&nbsp;JANVEY</a>
-        <ul class="flex">
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#apps">Apps</a></li>
-          <li><a href="#radio">Radio</a></li>
-          <li><a href="#career">Work</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+    }
+
+    /* ── Now playing ── */
+    async function loadNowPlaying() {
+      try {
+        var res  = await fetch(CONFIG.nowPlayingApi);
+        var json = await res.json();
+        if (!CONFIG.streamUrl && json.station && json.station.listen_url) {
+          CONFIG.streamUrl = json.station.listen_url;
+        }
+        var s = json.now_playing ? json.now_playing.song : null;
+        if (!s) return;
+        var el = document.getElementById('now-playing');
+        if (el) el.innerHTML = '<strong>' + (s.title||'Unknown Title') + '</strong> &mdash; ' + (s.artist||'Unknown Artist');
+        var spTitle  = document.getElementById('sp-title');
+        var spArtist = document.getElementById('sp-artist');
+        var spArt    = document.getElementById('sp-art');
+        if (spTitle)        spTitle.textContent  = s.title  || 'Unknown Title';
+        if (spArtist)       spArtist.textContent = s.artist || '';
+        if (spArt && s.art) spArt.src = s.art;
+      } catch(e) {}
+    }
+
+    /* ────────────────────────────────────────
+       NAV: active tracking + indicator
+    ──────────────────────────────────────── */
+    var _activeSection = null;
+
+    function getNavLink(sectionId) {
+      return document.querySelector('#nav-links a[data-section="' + sectionId + '"]');
+    }
+
+    function getMobileLink(sectionId) {
+      return document.querySelector('.nav-mobile-link[data-section="' + sectionId + '"]');
+    }
+
+    function setIndicator(linkEl) {
+      var ind  = document.getElementById('nav-indicator');
+      var list = document.getElementById('nav-links');
+      if (!ind || !list || !linkEl) {
+        if (ind) ind.style.opacity = '0';
+        return;
+      }
+      var listRect = list.getBoundingClientRect();
+      var linkRect = linkEl.getBoundingClientRect();
+      ind.style.left    = (linkRect.left - listRect.left) + 'px';
+      ind.style.width   = linkRect.width + 'px';
+      ind.style.opacity = '1';
+    }
+
+    function setActiveSection(id) {
+      if (id === _activeSection) return;
+      _activeSection = id;
+
+      /* clear all */
+      document.querySelectorAll('#nav-links a').forEach(function(a) { a.classList.remove('active'); });
+      document.querySelectorAll('.nav-mobile-link').forEach(function(a) { a.classList.remove('active'); });
+
+      if (!id) { setIndicator(null); return; }
+
+      var link = getNavLink(id);
+      if (link) { link.classList.add('active'); setIndicator(link); }
+
+      var mlink = getMobileLink(id);
+      if (mlink) mlink.classList.add('active');
+    }
+
+    function updateActiveFromScroll() {
+      var sections = ['projects', 'films', 'career', 'contact'];
+      var scrollY  = window.scrollY || window.pageYOffset;
+      var active   = null;
+      var offset   = 100; /* px below viewport top to trigger */
+
+      for (var i = 0; i < sections.length; i++) {
+        var el = document.getElementById(sections[i]);
+        if (!el) continue;
+        var top = el.getBoundingClientRect().top + scrollY;
+        if (scrollY + offset >= top) active = sections[i];
+      }
+      setActiveSection(active);
+    }
+
+    /* ── Mobile menu ── */
+    function toggleMobileMenu() {
+      var btn  = document.getElementById('nav-mobile-btn');
+      var menu = document.getElementById('nav-mobile-menu');
+      var open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('nav-mobile-menu').classList.remove('open');
+      document.getElementById('nav-mobile-btn').classList.remove('open');
+    }
+
+    /* ── Hero terminal ── */
+    var RESPONSES = {
+      help:
+'commands:\n  whoami     — who is this?\n  ls         — list projects\n  cat about  — more detail\n  play       — start SAM FM ♪\n  stop       — stop SAM FM\n  github     — open GitHub\n  clear      — clear terminal',
+
+      whoami:
+'Sam Janvey — builder, operator, maker.\nNew York. Shipping real software since 2015.\nCurrently building tools at I. Janvey & Sons + side projects.',
+
+      ls:
+'drwxr-xr-x  golf-betting-app/\ndrwxr-xr-x  sam-fm-android/\ndrwxr-xr-x  futura-css/\ndrwxr-xr-x  warehouse-kpi/\ndrwxr-xr-x  rebate-engine/',
+
+      'cat about':
+'Name:     Sam Janvey\nLocation: New York, NY\nStack:    Android (Java) · React Native · Node.js · NetSuite SuiteScript\nEmail:    sjanvey@gmail.com\nFocus:    Products that solve real problems for real people.',
+    };
+
+    function termOut(text, cls) {
+      var out = document.getElementById('terminal-output');
+      if (!out) return;
+      var div = document.createElement('div');
+      div.className = 't-line' + (cls ? ' ' + cls : '');
+      div.textContent = text;
+      out.appendChild(div);
+      out.scrollTop = out.scrollHeight;
+    }
+
+    function sleep(ms) { return new Promise(function(r){ setTimeout(r, ms); }); }
+
+    async function typewriteLine(text, cls, charDelay) {
+      var out = document.getElementById('terminal-output');
+      if (!out) return;
+      var div = document.createElement('div');
+      div.className = 't-line' + (cls ? ' ' + cls : '');
+      out.appendChild(div);
+      for (var i = 0; i < text.length; i++) {
+        div.textContent += text[i];
+        out.scrollTop = out.scrollHeight;
+        await sleep(charDelay || 40);
+      }
+    }
+
+    async function runBoot() {
+      await sleep(350);
+      await typewriteLine('sam@janvey:~$ ./boot.sh', '', 42);
+      await sleep(220);
+      termOut('Initializing...', 'dim');
+      await sleep(480);
+      termOut('[OK] Projects loaded', 'dim');
+      await sleep(320);
+      termOut('[OK] Radio connected', 'dim');
+      await sleep(320);
+      termOut('[OK] Ready.', 'dim');
+      await sleep(420);
+      termOut('');
+      termOut("Type 'help' for available commands.", 'dim');
+      var input = document.getElementById('terminal-input');
+      if (input) input.disabled = false;
+    }
+
+    function handleCommand(raw) {
+      var cmd = raw.trim().toLowerCase();
+      termOut('sam@janvey:~$ ' + raw, '');
+      if (!cmd) return;
+      if (cmd === 'clear')  { document.getElementById('terminal-output').innerHTML = ''; return; }
+      if (cmd === 'play')   { startRadio(); termOut('Starting SAM FM... ♪', 'response'); return; }
+      if (cmd === 'stop')   { stopRadio();  termOut('SAM FM stopped.', 'response'); return; }
+      if (cmd === 'github') { window.open(CONFIG.github, '_blank'); termOut('Opening GitHub...', 'response'); return; }
+      var resp = RESPONSES[cmd];
+      if (resp) {
+        resp.split('\n').forEach(function(line) { termOut(line, 'response'); });
+      } else {
+        termOut('bash: ' + cmd + ': command not found', 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      /* terminal */
+      var input = document.getElementById('terminal-input');
+      if (input) {
+        input.disabled = true;
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { var v = input.value; input.value = ''; handleCommand(v); }
+        });
+        document.getElementById('terminal-body').addEventListener('click', function() {
+          if (!input.disabled) input.focus();
+        });
+      }
+      runBoot();
+
+      /* sticky player: show when hero leaves viewport */
+      var hero = document.querySelector('.hero');
+      if (hero && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function(entries) {
+          setStickyVisible(!entries[0].isIntersecting);
+        }, { threshold: 0 }).observe(hero);
+      }
+
+      /* nav: scrolled class */
+      var navWrapper = document.getElementById('nav-wrapper');
+      function onScroll() {
+        if (navWrapper) {
+          navWrapper.classList.toggle('scrolled', window.scrollY > 20);
+        }
+        updateActiveFromScroll();
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* nav: reposition indicator on resize */
+      window.addEventListener('resize', function() {
+        var link = _activeSection ? getNavLink(_activeSection) : null;
+        if (link) setIndicator(link);
+      });
+
+      /* now-playing */
+      loadNowPlaying();
+      setInterval(loadNowPlaying, 15000);
+
+      /* AzuraCast iframe */
+      if (CONFIG.radioPublicPlayer) {
+        var f = document.getElementById('radio-embed');
+        if (f) f.src = CONFIG.radioPublicPlayer.replace(/\/$/, '') + '/embed?theme=dark';
+      }
+
+      document.getElementById('y').textContent = new Date().getFullYear();
+    });
+  </script>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <div id="nav-wrapper">
+    <header class="container">
+      <nav class="flex justify-content-between align-content-center">
+        <a href="#" class="fmpointifax text-md letter-spacing-2 nav-logo">SAM&nbsp;JANVEY</a>
+
+        <div style="position:relative; display:flex; align-items:center;">
+          <ul id="nav-links">
+            <li><a href="#projects" data-section="projects">Projects</a></li>
+            <li><a href="#films"    data-section="films">Films &amp; Music</a></li>
+            <li><a href="#career"   data-section="career">Work</a></li>
+            <li><a href="#contact"  data-section="contact">Contact</a></li>
+          </ul>
+          <span id="nav-indicator"></span>
+
+          <button id="nav-mobile-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu"></button>
+        </div>
       </nav>
     </header>
 
-    <!-- Hero: uses .hero background class from Futura; you can replace the image at /images/hero_foggy_1182x665.jpg -->
-    <section class="hero hero-cover">
-      <div class="container">
-        <h1 class="text-xxxl fmpointifax letter-spacing-2 align-center margin-bottom-2">I build practical things.</h1>
-        <p class="align-center inconsolata muted width-100">From a 24/7 online radio station to ERP tools, from a CSS framework (<b>Futura</b>) to the <i>Nassau Golf</i> app—my focus is shipping real products people use.</p>
-        <div class="flex justify-content-center margin-top-2 stack-sm">
-          <a class="button-primary" href="#projects">See my work</a>
-          <a class="button-success margin-left-2" href="javascript:void(0)" onclick="window.open(CONFIG.github,'_blank')">GitHub</a>
+    <!-- Mobile dropdown -->
+    <div id="nav-mobile-menu">
+      <div class="nav-mobile-inner">
+        <p class="nav-mobile-prompt">sam@janvey:~$ ls nav/</p>
+        <a href="#projects" class="nav-mobile-link" data-section="projects" onclick="closeMobileMenu()">drwxr-xr-x&nbsp; projects/</a>
+        <a href="#films"    class="nav-mobile-link" data-section="films"    onclick="closeMobileMenu()">drwxr-xr-x&nbsp; films-and-music/</a>
+        <a href="#career"   class="nav-mobile-link" data-section="career"   onclick="closeMobileMenu()">drwxr-xr-x&nbsp; work/</a>
+        <a href="#contact"  class="nav-mobile-link" data-section="contact"  onclick="closeMobileMenu()">drwxr-xr-x&nbsp; contact/</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Hero: interactive terminal ── -->
+  <section class="hero hero-cover">
+    <div class="container" style="max-width:700px">
+      <div id="hero-terminal">
+        <div id="terminal-titlebar">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span id="terminal-title-label">sam@janvey: ~</span>
+        </div>
+        <div id="terminal-body">
+          <div id="terminal-output"></div>
+          <div id="terminal-input-row">
+            <span class="t-prompt-label">sam@janvey:~$&nbsp;</span>
+            <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input" />
+          </div>
+          <div id="terminal-btn-row">
+            <button class="t-cmd-btn" onclick="handleCommand('whoami')">[whoami]</button>
+            <button class="t-cmd-btn" onclick="handleCommand('ls')">[ls]</button>
+            <button class="t-cmd-btn" onclick="handleCommand('cat about')">[cat about]</button>
+            <button class="t-cmd-btn" onclick="handleCommand('play')">[play]</button>
+            <button class="t-cmd-btn" onclick="handleCommand('github')">[github]</button>
+            <button class="t-cmd-btn" onclick="handleCommand('clear')">[clear]</button>
+          </div>
         </div>
       </div>
-    </section>
+      <p class="t-scroll-hint">&#x2193; scroll to explore &#x2193;</p>
+    </div>
+  </section>
 
-    <!-- Projects -->
-    <section id="projects" class="container">
-      <div class="flex justify-content-between align-content-end">
-        <h2 class="fmpointifax">Highlighted Projects</h2>
-        <a href="javascript:void(0)" onclick="window.open(CONFIG.github,'_blank')" class="inconsolata">All on GitHub →</a>
-      </div>
-
-      <div class="grid cols-3 margin-top-2">
-        <section class="terminal">
-          <span class="chip">App</span>
-          <h3 class="margin-top-2">Nassau Golf</h3>
-          <p class="inconsolata">Handicap‑aware scoring, presses, side bets & match tracking for real foursomes. Mobile‑first.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="#apps">Details</a>
-            <a class="margin-left-2" href="#">Repo</a>
-          </div>
-        </section>
-
-        <section class="terminal">
-          <span class="chip">Infra</span>
-          <h3 class="margin-top-2">Online Radio Station</h3>
-          <p class="inconsolata">Self‑hosted AzuraCast with playlists, audio processing (Stereo Tool), and live DJ support.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="#radio">Listen</a>
-            <a class="margin-left-2" href="#">Notes</a>
-          </div>
-        </section>
-
-        <section class="terminal">
-          <span class="chip">CSS</span>
-          <h3 class="margin-top-2">Futura CSS</h3>
-          <p class="inconsolata">Minimal, utility‑first styling for fast prototyping and production UI.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" target="_blank" rel="noopener">CSS</a>
-            <a class="margin-left-2" href="https://jovial-brattain-a25ab6.netlify.app" target="_blank" rel="noopener">Playground</a>
-          </div>
-        </section>
-
-        <section class="terminal">
-          <span class="chip">Games</span>
-          <h3 class="margin-top-2">Game Projects @ Penn State</h3>
-          <p class="inconsolata">A collection of small games and experiments from my Penn State courses.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="#apps">Gallery</a>
-            <a class="margin-left-2" href="#">Source</a>
-          </div>
-        </section>
-
-        <section class="terminal">
-          <span class="chip">Ops</span>
-          <h3 class="margin-top-2">PDF → CSV Order Parser</h3>
-          <p class="inconsolata">Automates Northwell/CHS POs into NetSuite‑ready CSVs. Drag‑and‑drop UI + email ingest.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="#">Case study</a>
-            <a class="margin-left-2" href="#">Repo</a>
-          </div>
-        </section>
-
-        <section class="terminal">
-          <span class="chip">AI</span>
-          <h3 class="margin-top-2">AI Outreach Agent</h3>
-          <p class="inconsolata">Finds under‑penetrated customers (&lt;$50k/yr), drafts multi‑touch campaigns, logs to NetSuite.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="#">Overview</a>
-            <a class="margin-left-2" href="#">Repo</a>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <!-- Apps & Games -->
-    <section id="apps" class="container">
-      <h2 class="fmpointifax">Apps & Games</h2>
-      <div class="grid cols-3 margin-top-2">
-        <section class="terminal">
-          <h3>The Embrace (Prototype)</h3>
-          <p class="inconsolata">Found‑footage horror prototype. Phone‑shot assets; Unity build.</p>
-          <div class="flex stack-sm"><a class="button-primary" href="#">Play</a><a class="margin-left-2" href="#">Source</a></div>
-        </section>
-        <section class="terminal">
-          <h3>Warehouse KPI Dashboard</h3>
-          <p class="inconsolata">Routes, load %, SLA, and exceptions. NetSuite + custom scripts.</p>
-          <div class="flex stack-sm"><a class="button-primary" href="#">Demo</a><a class="margin-left-2" href="#">Source</a></div>
-        </section>
-        <section class="terminal">
-          <h3>Rebate Engine</h3>
-          <p class="inconsolata">Automates tiered rebates (Northwell/CHS). Audit‑ready exports.</p>
-          <div class="flex stack-sm"><a class="button-primary" href="#">Overview</a><a class="margin-left-2" href="#">Source</a></div>
-        </section>
-      </div>
-    </section>
-
-    <!-- Radio -->
-    <section id="radio" class="container">
-      <div class="grid cols-2">
-        <section>
-          <h2 class="fmpointifax">📻 My Online Radio</h2>
-          <p class="inconsolata muted">Hand‑curated library, processed with Stereo Tool, streaming 24/7 via AzuraCast.</p>
-          <div class="margin-top-2">
-            <iframe id="radio-embed" title="Sam FM Player" src="about:blank" style="width:100%; min-height:160px; border:0" allow="autoplay; encrypted-media"></iframe>
-          </div>
-          <div class="flex margin-top-2">
-            <a class="button-primary" href="javascript:void(0)" onclick="CONFIG.radioPublicPlayer ? window.open(CONFIG.radioPublicPlayer,'_blank') : alert('Add your public player URL in CONFIG.radioPublicPlayer')">Open player page</a>
-            <a class="margin-left-2" href="#">Schedule</a>
-          </div>
-        </section>
-        <section class="terminal">
-          <h3>Metadata</h3>
-          <p class="inconsolata">Now Playing: <span id="now-playing" class="muted">—</span></p>
-          <p class="inconsolata">Album art: enable in AzuraCast → System Settings → Metadata.</p>
-          <p class="inconsolata">Android Auto: provided via ICY metadata (player‑dependent).</p>
-        </section>
-      </div>
-    </section>
-
-    <!-- Career -->
-    <section id="career" class="container">
-      <h2 class="fmpointifax">Professional Work</h2>
-      <div class="grid cols-2 margin-top-2">
-        <section class="terminal">
-          <h3>I. Janvey & Sons — Sales & Ops</h3>
-          <p class="inconsolata">Wholesale distribution (healthcare/education/government). Pipeline growth, pricing strategy, and data‑driven ops.</p>
-          <a class="button-primary" href="https://www.janvey.com" target="_blank" rel="noopener">Company Site</a>
-        </section>
-        <section class="terminal">
-          <h3>Professional Maintenance of Long Island</h3>
-          <p class="inconsolata">On‑site services: EVS, day porters, floor‑care programs, USP 797 cleaning SOPs, audits & training.</p>
-          <a class="button-primary" href="#">Overview</a>
-        </section>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="container">
-      <div class="grid cols-2">
-        <div>
-          <h2 class="fmpointifax">Get in touch</h2>
-          <p class="inconsolata muted">Lightweight collaboration? Advice? I’m open to interesting problems with real users.</p>
-          <div class="flex stack-sm">
-            <a class="button-primary" href="mailto:javascript:void(0)" onclick="location.href=`mailto:${CONFIG.email}`">Email me</a>
-            <a class="margin-left-2" href="javascript:void(0)" onclick="window.open(CONFIG.linkedin,'_blank')">LinkedIn</a>
-          </div>
+  <!-- ── Projects ── -->
+  <section id="projects" class="container">
+    <div class="flex justify-content-between align-content-end">
+      <h2 class="fmpointifax">Highlighted Projects</h2>
+      <a href="javascript:void(0)" onclick="window.open(CONFIG.github,'_blank')" class="inconsolata">All on GitHub &rarr;</a>
+    </div>
+    <div class="grid cols-3 margin-top-2">
+      <section class="terminal">
+        <span class="chip">App</span>
+        <h3 class="margin-top-2">Golf Betting App</h3>
+        <p class="inconsolata">Nassau, skins, and side-bet scoring for real foursomes. Handicap-aware, mobile-first.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="https://github.com/sneadthaman/golf-app" target="_blank" rel="noopener">Repo</a>
         </div>
-
-        <form class="card" name="contact" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="contact" />
-          <div class="grid cols-2">
-            <label> Name <br /><input name="name" required class="width-100"/></label>
-            <label> Email <br /><input name="email" type="email" required class="width-100"/></label>
-          </div>
-          <label class="margin-top-2" style="display:block"> Message <br /><textarea name="message" rows="5" class="width-100" required></textarea></label>
-          <div class="margin-top-2">
-            <button class="button-success" type="submit">Send</button>
-            
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <footer>
-      <section class="container flex justify-content-between align-content-center">
-        <p>© <span id="y"></span> Sam Janvey</p>
-        <p class="inconsolata muted" style="margin-left: 10px">Built with Futura CSS Framework</p>
       </section>
-    </footer>
+      <section class="terminal">
+        <span class="chip">Android</span>
+        <h3 class="margin-top-2">SAM FM</h3>
+        <p class="inconsolata">Native Android streaming app for SAM FM. ExoPlayer, background playback, Bluetooth &amp; Android Auto.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="#films">Listen</a>
+          <a class="margin-left-2" href="https://github.com/sneadthaman" target="_blank" rel="noopener">Repo</a>
+        </div>
+      </section>
+      <section class="terminal">
+        <span class="chip">CSS</span>
+        <h3 class="margin-top-2">Futura CSS</h3>
+        <p class="inconsolata">Minimal, utility-first styling for fast prototyping and production UI.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="https://res.cloudinary.com/dewlg7mbg/raw/upload/v1621133416/css/style.min.css_vli8m0.css" target="_blank" rel="noopener">CSS</a>
+          <a class="margin-left-2" href="https://jovial-brattain-a25ab6.netlify.app" target="_blank" rel="noopener">Playground</a>
+        </div>
+      </section>
+    </div>
+  </section>
 
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-      // Wire up AzuraCast embed iframe
-      (function(){
-        if (CONFIG.radioPublicPlayer) {
-          var f = document.getElementById('radio-embed');
-          if (f) f.src = CONFIG.radioPublicPlayer.replace(/\/$/,'') + '/embed?theme=dark';
-        }
-      })();
-    </script>
-  </body>
+  <!-- ── Films & Music ── -->
+  <section id="films" class="container">
+    <h2 class="fmpointifax">Films &amp; Music</h2>
+    <div class="grid cols-2 margin-top-2">
+      <section class="terminal">
+        <h3>The Embrace (Prototype)</h3>
+        <p class="inconsolata">Found-footage horror prototype. Phone-shot assets; Unity build.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="#">Play</a>
+          <a class="margin-left-2" href="#">Source</a>
+        </div>
+      </section>
+      <section class="terminal">
+        <h3>&#128251; SAM FM Radio</h3>
+        <p class="inconsolata muted">Hand-curated library, processed with Stereo Tool, streaming 24/7 via AzuraCast.</p>
+        <div class="margin-top-2">
+          <iframe id="radio-embed" title="Sam FM Player" src="about:blank" style="width:100%; min-height:160px; border:0" allow="autoplay; encrypted-media"></iframe>
+        </div>
+        <p class="inconsolata margin-top-2">Now Playing: <span id="now-playing" class="muted">&mdash;</span></p>
+        <div class="flex margin-top-2">
+          <a class="button-primary" href="javascript:void(0)" onclick="CONFIG.radioPublicPlayer ? window.open(CONFIG.radioPublicPlayer,'_blank') : null">Open player</a>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ── Professional Work ── -->
+  <section id="career" class="container">
+    <h2 class="fmpointifax">Professional Work</h2>
+    <div class="grid cols-2 margin-top-2">
+      <section class="terminal">
+        <h3>Warehouse KPI Dashboard</h3>
+        <p class="inconsolata">Routes, load %, SLA, and exceptions. NetSuite + custom scripts.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="#">Demo</a>
+          <a class="margin-left-2" href="#">Source</a>
+        </div>
+      </section>
+      <section class="terminal">
+        <h3>Rebate Engine</h3>
+        <p class="inconsolata">Automates tiered rebates. Audit-ready exports.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="#">Overview</a>
+          <a class="margin-left-2" href="#">Source</a>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ── Contact ── -->
+  <section id="contact" class="container">
+    <div class="grid cols-2">
+      <div>
+        <h2 class="fmpointifax">Get in touch</h2>
+        <p class="inconsolata muted">Lightweight collaboration? Advice? I'm open to interesting problems with real users.</p>
+        <div class="flex stack-sm">
+          <a class="button-primary" href="mailto:javascript:void(0)" onclick="location.href='mailto:'+CONFIG.email">Email me</a>
+          <a class="margin-left-2" href="javascript:void(0)" onclick="window.open(CONFIG.linkedin,'_blank')">LinkedIn</a>
+        </div>
+      </div>
+      <form class="card" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact" />
+        <div class="grid cols-2">
+          <label>Name<br /><input name="name" required class="width-100" /></label>
+          <label>Email<br /><input name="email" type="email" required class="width-100" /></label>
+        </div>
+        <label class="margin-top-2" style="display:block">Message<br /><textarea name="message" rows="5" class="width-100" required></textarea></label>
+        <div class="margin-top-2">
+          <button class="button-success" type="submit">Send</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <section class="container flex justify-content-between align-content-center">
+      <p>&copy; <span id="y"></span> Sam Janvey</p>
+      <p class="inconsolata muted" style="margin-left:10px">Built with Futura CSS Framework</p>
+    </section>
+  </footer>
+
+  <!-- Sticky radio player -->
+  <div id="sticky-player">
+    <img id="sp-art" src="" alt="" />
+    <div id="sp-info">
+      <span id="sp-title">SAM FM</span>
+      <span id="sp-artist"></span>
+    </div>
+    <span id="sp-label">SAM&nbsp;FM</span>
+    <button id="sp-toggle" onclick="toggleRadio()" title="Play / Pause">&#9654;</button>
+  </div>
+
+</body>
 </html>
